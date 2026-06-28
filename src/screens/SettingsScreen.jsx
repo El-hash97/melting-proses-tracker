@@ -59,7 +59,7 @@ export default function SettingsScreen({ onClose }) {
       {/* Top accent line */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-700 to-transparent" />
 
-      <header className="flex items-center justify-between px-6 py-4 border-b border-furnace-border">
+      <header className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-b border-furnace-border">
         <div className="flex items-center gap-3">
           <span className="font-display text-lg tracking-widest text-zinc-300">KONFIGURASI WAKTU</span>
           {autoSaveId && (
@@ -87,16 +87,16 @@ export default function SettingsScreen({ onClose }) {
             ? 'bg-yellow-900/20 border-yellow-700/30'
             : 'bg-red-900/20 border-red-700/30'
         }`}>
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-1.5 sm:gap-0">
             <div>
               <p className="text-zinc-500 text-xs font-mono tracking-widest uppercase">Total Dikonfigurasi</p>
-              <p className={`font-display text-4xl tracking-widest ${
+              <p className={`font-display text-3xl sm:text-4xl tracking-widest ${
                 deviation === 0 ? 'text-emerald-400' : Math.abs(deviation) <= 5 ? 'text-yellow-400' : 'text-red-400'
               }`}>{totalMin} MENIT</p>
             </div>
-            <div className="text-right">
+            <div className="sm:text-right">
               <p className="text-zinc-500 text-xs font-mono tracking-widest uppercase">Deviasi dari Standar</p>
-              <p className={`font-display text-2xl tracking-widest ${
+              <p className={`font-display text-xl sm:text-2xl tracking-widest ${
                 deviation === 0 ? 'text-emerald-400' : Math.abs(deviation) <= 5 ? 'text-yellow-400' : 'text-red-400'
               }`}>
                 {deviation === 0 ? '±0' : deviation > 0 ? `+${deviation}` : deviation} MNT

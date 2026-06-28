@@ -49,9 +49,9 @@ export default function DashboardScreen({ onOpenSettings, onOpenHistory }) {
       <div className={`h-px w-full bg-gradient-to-r ${accentGradient} transition-all duration-700`} />
 
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-furnace-border">
-        <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-4 h-4">
+      <header className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-b border-furnace-border">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div className="relative flex items-center justify-center w-4 h-4 flex-shrink-0">
             {status === 'running' && (
               <span className={`absolute inset-0 rounded-full animate-ping ${
                 phaseStatus === 'overtime' ? 'bg-red-400/30' :
@@ -63,9 +63,9 @@ export default function DashboardScreen({ onOpenSettings, onOpenHistory }) {
               status === 'paused' ? 'bg-amber-400' : 'bg-zinc-600'
             }`} />
           </div>
-          <span className="font-display text-lg tracking-widest text-zinc-300">FURNACE TRACKER</span>
+          <span className="font-display text-base sm:text-lg tracking-widest text-zinc-300 truncate">FURNACE TRACKER</span>
           {status !== 'idle' && (
-            <span className={`font-mono text-xs tracking-widest px-2 py-0.5 rounded border ${
+            <span className={`hidden sm:inline font-mono text-xs tracking-widest px-2 py-0.5 rounded border flex-shrink-0 ${
               status === 'running'
                 ? 'text-emerald-400 border-emerald-800/40 bg-emerald-900/20'
                 : 'text-amber-400 border-amber-800/40 bg-amber-900/20'
@@ -74,37 +74,37 @@ export default function DashboardScreen({ onOpenSettings, onOpenHistory }) {
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
           <button
             onClick={onOpenHistory}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-200 hover:border-zinc-500 hover:bg-white/[0.04] transition-all font-display text-sm tracking-widest"
+            className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-200 hover:border-zinc-500 hover:bg-white/[0.04] transition-all font-display text-sm tracking-widest"
           >
             <ClipboardList size={14} />
-            HISTORY
+            <span className="hidden sm:inline">HISTORY</span>
           </button>
           <button
             onClick={onOpenSettings}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-200 hover:border-zinc-500 hover:bg-white/[0.04] transition-all font-display text-sm tracking-widest"
+            className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-200 hover:border-zinc-500 hover:bg-white/[0.04] transition-all font-display text-sm tracking-widest"
           >
             <Settings size={14} />
-            SETTINGS
+            <span className="hidden sm:inline">SETTINGS</span>
           </button>
         </div>
       </header>
 
-      <main className="flex-1 flex items-start justify-center gap-6 px-6 py-6 overflow-auto">
-        {/* Left: info panels */}
-        <div className="w-72 flex-shrink-0 flex flex-col gap-3 pt-2">
+      <main className="flex-1 flex flex-col md:flex-row items-center md:items-start justify-center gap-4 md:gap-6 px-3 sm:px-6 py-4 sm:py-6 overflow-auto">
+        {/* Left: info panels — below battery on mobile */}
+        <div className="w-full md:w-72 flex-shrink-0 flex flex-col gap-3 order-2 md:order-1 md:pt-2">
           <PhasePanel />
         </div>
 
-        {/* Center: Battery */}
-        <div className="flex-shrink-0 flex flex-col items-center pt-2">
+        {/* Center: Battery — on top on mobile */}
+        <div className="flex-shrink-0 flex flex-col items-center order-1 md:order-2 md:pt-2">
           <BatteryIndicator />
         </div>
 
-        {/* Right: phase list + controls */}
-        <div className="w-56 flex-shrink-0 flex flex-col gap-3 pt-2">
+        {/* Right: phase list + controls — last on mobile */}
+        <div className="w-full md:w-56 flex-shrink-0 flex flex-col gap-3 order-3 md:pt-2">
           <PhaseList />
           <ControlButtons />
         </div>

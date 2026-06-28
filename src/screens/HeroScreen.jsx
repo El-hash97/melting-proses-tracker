@@ -74,7 +74,7 @@ export default function HeroScreen({ onEnter }) {
           initial="hidden"
           animate="show"
           custom={1}
-          className="font-display text-6xl md:text-8xl tracking-widest text-white leading-none mb-6"
+          className="font-display text-5xl sm:text-6xl md:text-8xl tracking-widest text-white leading-none mb-6"
         >
           FURNACE
           <br />

@@ -58,13 +58,12 @@ export default function BatteryIndicator() {
   return (
     <div className="flex flex-col items-center gap-2 select-none">
       {/* Terminal cap */}
-      <div className="w-20 h-4 rounded-sm" style={{ background: '#2A2A32' }} />
+      <div className="w-12 sm:w-16 md:w-20 h-4 rounded-sm" style={{ background: '#2A2A32' }} />
 
       {/* Battery body */}
       <div
-        className="relative w-72 rounded-2xl overflow-hidden transition-all duration-700"
+        className="relative w-56 sm:w-64 md:w-72 h-[320px] sm:h-[420px] md:h-[540px] rounded-2xl overflow-hidden transition-all duration-700"
         style={{
-          height: 540,
           border: `3px solid ${borderColor}`,
           background: '#0D0D10',
           boxShadow: glowStyle,
@@ -129,7 +128,7 @@ export default function BatteryIndicator() {
       {/* Fill percentage + total time */}
       <div className="text-center mt-1">
         <div
-          className={`font-display text-5xl tracking-widest ${
+          className={`font-display text-3xl sm:text-4xl md:text-5xl tracking-widest ${
             phaseStatus === 'overtime' ? 'text-red-400' : phaseStatus === 'warning' ? 'text-yellow-400' : 'text-amber-400'
           }`}
         >

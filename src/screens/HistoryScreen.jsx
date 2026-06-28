@@ -41,16 +41,16 @@ export default function HistoryScreen({ onClose }) {
       {/* Top accent line */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-700 to-transparent" />
 
-      <header className="flex items-center justify-between px-6 py-4 border-b border-furnace-border">
+      <header className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-b border-furnace-border gap-2">
         <span className="font-display text-lg tracking-widest text-zinc-300">RIWAYAT SIKLUS</span>
         <div className="flex items-center gap-2">
           {records.length > 0 && (
             <button
               onClick={() => setShowConfirm(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-900/40 text-red-600 hover:text-red-400 hover:border-red-700/60 hover:bg-red-900/10 transition-all font-display text-sm tracking-widest"
+              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg border border-red-900/40 text-red-600 hover:text-red-400 hover:border-red-700/60 hover:bg-red-900/10 transition-all font-display text-sm tracking-widest"
             >
               <Trash2 size={13} />
-              HAPUS SEMUA
+              <span className="hidden sm:inline">HAPUS SEMUA</span>
             </button>
           )}
           <button
@@ -118,7 +118,7 @@ function SummaryStats({ records }) {
   const onTime = total - faster - overtime;
 
   return (
-    <div className="grid grid-cols-4 gap-3 mb-2">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-2">
       <div className="bg-furnace-panel rounded-xl border border-furnace-border p-4 text-center">
         <p className="font-display text-3xl tracking-widest text-white">{total}</p>
         <p className="font-mono text-xs text-zinc-500 mt-1 tracking-widest uppercase">Total</p>
@@ -153,26 +153,27 @@ function RecordCard({ record, index }) {
   return (
     <div className="bg-furnace-panel rounded-xl border border-furnace-border overflow-hidden hover:border-zinc-600/60 transition-colors">
       <button
-        className="w-full flex items-center gap-4 px-4 py-3 text-left hover:bg-white/[0.02] transition-colors"
+        className="w-full flex items-center gap-2 sm:gap-4 px-3 sm:px-4 py-3 text-left hover:bg-white/[0.02] transition-colors"
         onClick={() => setExpanded(e => !e)}
       >
         <span className="font-mono text-xs text-zinc-600 w-5 flex-shrink-0 text-right">#{index + 1}</span>
 
         <div className="flex-1 min-w-0">
-          <p className="font-display text-sm tracking-widest text-zinc-300">{formatDate(record.finishedAt)}</p>
-          <p className="font-mono text-xs text-zinc-600 mt-0.5">
-            {formatDuration(record.totalElapsed)} aktual &nbsp;/&nbsp; {formatDuration(record.totalConfigured)} standar
+          <p className="font-display text-xs sm:text-sm tracking-widest text-zinc-300 truncate">{formatDate(record.finishedAt)}</p>
+          <p className="font-mono text-[10px] sm:text-xs text-zinc-600 mt-0.5">
+            {formatDuration(record.totalElapsed)} / {formatDuration(record.totalConfigured)}
           </p>
         </div>
 
-        <div className={`flex-shrink-0 px-3 py-1.5 rounded-lg border text-xs font-display tracking-widest ${sc.badge}`}>
+        <div className={`hidden sm:flex flex-shrink-0 px-3 py-1.5 rounded-lg border text-xs font-display tracking-widest ${sc.badge}`}>
           {sc.label}
         </div>
 
-        <div className="flex-shrink-0 text-right min-w-[60px]">
-          <p className={`font-display text-xl tracking-widest ${sc.dev}`}>
+        <div className="flex-shrink-0 text-right min-w-[48px] sm:min-w-[60px]">
+          <p className={`font-display text-base sm:text-xl tracking-widest ${sc.dev}`}>
             {record.deviation === 0 ? '±0' : formatDeviation(record.deviation)}
           </p>
+          <p className={`sm:hidden font-mono text-[9px] tracking-widest mt-0.5 ${sc.dev}`}>{sc.label}</p>
         </div>
 
         <ChevronDown
