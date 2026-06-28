@@ -3,6 +3,8 @@ import BatteryIndicator from '../components/BatteryIndicator';
 import PhasePanel from '../components/PhasePanel';
 import ControlButtons from '../components/ControlButtons';
 import { useFurnace } from '../context/FurnaceContext';
+import { GridPattern } from '@/components/ui/grid-pattern';
+import { cn } from '@/lib/utils';
 
 export default function DashboardScreen({ onOpenSettings, onOpenHistory }) {
   const { status, phaseStatus } = useFurnace();
@@ -16,8 +18,33 @@ export default function DashboardScreen({ onOpenSettings, onOpenHistory }) {
         : 'from-transparent via-amber-500 to-transparent'
       : 'from-transparent via-zinc-700 to-transparent';
 
+  const gridColor =
+    status === 'running'
+      ? phaseStatus === 'overtime'
+        ? 'fill-red-500/[0.08] stroke-red-500/[0.12]'
+        : phaseStatus === 'warning'
+        ? 'fill-yellow-500/[0.08] stroke-yellow-500/[0.12]'
+        : 'fill-amber-500/[0.08] stroke-amber-500/[0.12]'
+      : 'fill-zinc-700/[0.06] stroke-zinc-700/[0.10]';
+
   return (
-    <div className="min-h-screen bg-furnace-bg flex flex-col font-body">
+    <div className="relative min-h-screen bg-furnace-bg flex flex-col font-body overflow-hidden">
+      {/* Grid background */}
+      <GridPattern
+        width={40}
+        height={40}
+        squares={[
+          [2, 3], [4, 1], [6, 4], [8, 2], [10, 5],
+          [1, 7], [3, 9], [5, 6], [7, 8], [9, 3],
+          [11, 7], [13, 2], [15, 9], [12, 5], [14, 1],
+        ]}
+        className={cn(
+          gridColor,
+          'transition-all duration-700',
+          '[mask-image:radial-gradient(ellipse_80%_70%_at_50%_40%,white_30%,transparent_100%)]',
+        )}
+      />
+
       {/* Top accent line */}
       <div className={`h-px w-full bg-gradient-to-r ${accentGradient} transition-all duration-700`} />
 
