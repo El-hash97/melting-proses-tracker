@@ -24,6 +24,7 @@ export default function ConfirmDialog({
           >
             {confirmLabel}
           </button>
+
         </div>
       </div>
     </div>

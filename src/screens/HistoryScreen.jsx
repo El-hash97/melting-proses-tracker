@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ClipboardList, X, ChevronDown, Trash2 } from 'lucide-react';
 import { loadHistory, clearHistory } from '../lib/storage';
 
 function formatDuration(seconds) {
@@ -37,34 +38,41 @@ export default function HistoryScreen({ onClose }) {
 
   return (
     <div className="min-h-screen bg-furnace-bg flex flex-col font-body">
+      {/* Top accent line */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-700 to-transparent" />
+
       <header className="flex items-center justify-between px-6 py-4 border-b border-furnace-border">
         <span className="font-display text-lg tracking-widest text-zinc-300">RIWAYAT SIKLUS</span>
         <div className="flex items-center gap-2">
           {records.length > 0 && (
             <button
               onClick={() => setShowConfirm(true)}
-              className="px-3 py-1.5 rounded-lg border border-red-900/40 text-red-600 hover:text-red-400 hover:border-red-700/60 transition-all font-display text-sm tracking-widest"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-900/40 text-red-600 hover:text-red-400 hover:border-red-700/60 hover:bg-red-900/10 transition-all font-display text-sm tracking-widest"
             >
+              <Trash2 size={13} />
               HAPUS SEMUA
             </button>
           )}
           <button
             onClick={onClose}
-            className="px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-300 hover:border-zinc-500 transition-all font-display text-sm tracking-widest"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-200 hover:border-zinc-500 hover:bg-white/[0.04] transition-all font-display text-sm tracking-widest"
           >
-            ✕ TUTUP
+            <X size={14} />
+            TUTUP
           </button>
         </div>
       </header>
 
       <div className="flex-1 overflow-auto px-6 py-6 max-w-3xl mx-auto w-full">
         {records.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 gap-3">
-            <div className="w-16 h-16 rounded-full border-2 border-furnace-border flex items-center justify-center">
-              <span className="text-2xl">📋</span>
+          <div className="flex flex-col items-center justify-center py-24 gap-4">
+            <div className="w-16 h-16 rounded-full border-2 border-furnace-border bg-furnace-panel flex items-center justify-center">
+              <ClipboardList size={28} className="text-zinc-600" />
             </div>
-            <p className="font-display text-xl tracking-widest text-zinc-600">BELUM ADA RIWAYAT</p>
-            <p className="text-zinc-700 text-sm font-mono">Riwayat muncul setelah klik FINISH pada siklus.</p>
+            <div className="text-center">
+              <p className="font-display text-xl tracking-widest text-zinc-600">BELUM ADA RIWAYAT</p>
+              <p className="text-zinc-700 text-sm font-mono mt-2">Riwayat muncul setelah klik FINISH pada siklus.</p>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col gap-3">
@@ -78,20 +86,21 @@ export default function HistoryScreen({ onClose }) {
 
       {showConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-furnace-panel border border-furnace-border rounded-2xl p-6 max-w-sm w-full mx-4">
+          <div className="bg-furnace-panel border border-furnace-border rounded-2xl p-6 max-w-sm w-full mx-4 shadow-2xl">
             <h2 className="font-display text-2xl tracking-widest text-white mb-2">HAPUS RIWAYAT?</h2>
             <p className="text-zinc-400 text-sm mb-6">Semua {records.length} catatan siklus akan dihapus permanen.</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="flex-1 py-3 rounded-xl border border-furnace-border text-zinc-400 font-display tracking-widest text-sm hover:text-white transition-all"
+                className="flex-1 py-3 rounded-xl border border-furnace-border text-zinc-400 font-display tracking-widest text-sm hover:text-white hover:border-zinc-500 transition-all"
               >
                 BATAL
               </button>
               <button
                 onClick={handleClear}
-                className="flex-1 py-3 rounded-xl bg-red-700 hover:bg-red-600 text-white font-display tracking-widest text-sm transition-all"
+                className="flex-1 py-3 rounded-xl bg-red-700 hover:bg-red-600 text-white font-display tracking-widest text-sm transition-all active:scale-95 flex items-center justify-center gap-2"
               >
+                <Trash2 size={14} />
                 HAPUS
               </button>
             </div>
@@ -142,7 +151,7 @@ function RecordCard({ record, index }) {
     : { badge: 'bg-blue-900/30 border-blue-700/40 text-blue-400', dev: 'text-blue-400', label: 'LEBIH CEPAT' };
 
   return (
-    <div className="bg-furnace-panel rounded-xl border border-furnace-border overflow-hidden">
+    <div className="bg-furnace-panel rounded-xl border border-furnace-border overflow-hidden hover:border-zinc-600/60 transition-colors">
       <button
         className="w-full flex items-center gap-4 px-4 py-3 text-left hover:bg-white/[0.02] transition-colors"
         onClick={() => setExpanded(e => !e)}
@@ -166,11 +175,14 @@ function RecordCard({ record, index }) {
           </p>
         </div>
 
-        <span className={`text-zinc-600 text-xs transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}>▾</span>
+        <ChevronDown
+          size={14}
+          className={`text-zinc-600 flex-shrink-0 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+        />
       </button>
 
       {expanded && record.phases && (
-        <div className="border-t border-furnace-border px-4 py-3">
+        <div className="border-t border-furnace-border px-4 py-3 bg-black/10">
           <p className="font-mono text-xs text-zinc-600 tracking-widest uppercase mb-2">Konfigurasi Proses</p>
           <div className="flex flex-wrap gap-x-5 gap-y-1.5">
             {record.phases.map((p, i) => (

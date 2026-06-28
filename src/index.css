@@ -15,6 +15,20 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  button {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(255, 107, 43, 0.55);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+
   ::-webkit-scrollbar {
     width: 4px;
   }
@@ -26,6 +40,10 @@
   ::-webkit-scrollbar-thumb {
     background: #2A2A32;
     border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3A3A44;
   }
 
   input[type='number']::-webkit-inner-spin-button,

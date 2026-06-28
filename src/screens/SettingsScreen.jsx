@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { X, Check } from 'lucide-react';
 import { useFurnace } from '../context/FurnaceContext';
 import { SPEED_OPTIONS } from '../lib/storage';
 
@@ -55,18 +56,25 @@ export default function SettingsScreen({ onClose }) {
 
   return (
     <div className="min-h-screen bg-furnace-bg flex flex-col font-body">
+      {/* Top accent line */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-700 to-transparent" />
+
       <header className="flex items-center justify-between px-6 py-4 border-b border-furnace-border">
         <div className="flex items-center gap-3">
           <span className="font-display text-lg tracking-widest text-zinc-300">KONFIGURASI WAKTU</span>
           {autoSaveId && (
-            <span className="font-mono text-xs text-emerald-500 tracking-widest animate-pulse">✓ tersimpan</span>
+            <span className="inline-flex items-center gap-1 font-mono text-xs text-emerald-500 tracking-widest animate-pulse">
+              <Check size={11} />
+              tersimpan
+            </span>
           )}
         </div>
         <button
           onClick={onClose}
-          className="px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-300 hover:border-zinc-500 transition-all font-display text-sm tracking-widest"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-furnace-border text-zinc-500 hover:text-zinc-200 hover:border-zinc-500 hover:bg-white/[0.04] transition-all font-display text-sm tracking-widest"
         >
-          ✕ TUTUP
+          <X size={14} />
+          TUTUP
         </button>
       </header>
 
